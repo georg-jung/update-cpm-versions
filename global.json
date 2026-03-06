@@ -1,0 +1,10 @@
+{
+  "sdk": {
+    "allowPrerelease": true
+  },
+  "tools": {
+    "dotnet-test": {
+      "version": "2"
+    }
+  }
+}

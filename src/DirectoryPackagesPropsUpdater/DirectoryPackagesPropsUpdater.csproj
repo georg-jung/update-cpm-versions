@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dotnet-package-update</ToolCommandName>
+    <PackageId>DirectoryPackagesPropsUpdater</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Georg Jung</Authors>
+    <Description>Check and update NuGet package versions in Directory.Packages.props (Central Package Management)</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/georg-jung/DirectoryPackagesPropsUpdater</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/georg-jung/DirectoryPackagesPropsUpdater</RepositoryUrl>
+    <PackageTags>nuget;packages;update;directory-packages-props;central-package-management;cpm;dotnet-tool</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="DirectoryPackagesPropsUpdater.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NuGet.Versioning" />
+    <PackageReference Include="System.CommandLine" />
+  </ItemGroup>
+
+</Project>
