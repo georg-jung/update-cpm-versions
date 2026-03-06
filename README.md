@@ -1,6 +1,6 @@
 # DirectoryPackagesPropsUpdater
 
-A .NET tool that checks for outdated NuGet packages in `Directory.Packages.props` and updates them. Like [dotnet-outdated](https://github.com/dotnet-outdated/dotnet-outdated), but designed for [Central Package Management](https://learn.microsoft.com/nuget/consume-packages/central-package-management) -- it works directly on the props file without needing `dotnet restore`.
+A .NET tool that checks for outdated NuGet packages in `Directory.Packages.props` and updates them. Like [dotnet-outdated](https://github.com/dotnet-outdated/dotnet-outdated), but designed for [Central Package Management](https://learn.microsoft.com/nuget/consume-packages/central-package-management) -- it just works directly on the props file instead of applying dependency resolution approaches.
 
 ## Installation
 
@@ -12,20 +12,20 @@ dotnet tool install -g DirectoryPackagesPropsUpdater
 
 ```shell
 # Update packages in the current directory (finds Directory.Packages.props automatically)
-dotnet package-update
+dotnet update-cpm-versions
 
 # Preview changes without modifying the file
-dotnet package-update --dry-run
+dotnet update-cpm-versions --dry-run
 
 # Specify a path
-dotnet package-update ./path/to/directory
-dotnet package-update ./path/to/Directory.Packages.props
+dotnet update-cpm-versions ./path/to/directory
+dotnet update-cpm-versions ./path/to/Directory.Packages.props
 
 # Allow major version updates
-dotnet package-update --major
+dotnet update-cpm-versions --major
 
 # Only update patch versions
-dotnet package-update --patch-only
+dotnet update-cpm-versions --patch-only
 ```
 
 ## Filtering
@@ -34,26 +34,26 @@ Use `--include` or `--exclude` (mutually exclusive) with glob patterns to contro
 
 ```shell
 # Only update Microsoft packages
-dotnet package-update --include "Microsoft.*"
+dotnet update-cpm-versions --include "Microsoft.*"
 
-# Update everything except Rebex packages
-dotnet package-update --exclude "Rebex.*"
+# Update everything except Contoso packages
+dotnet update-cpm-versions --exclude "Contoso.*"
 
 # Multiple patterns
-dotnet package-update --exclude "Rebex.*" --exclude "Legacy.*"
+dotnet update-cpm-versions --exclude "Contoso.*" --exclude "Legacy.*"
 ```
 
 Use `--pin-major` with `--major` to allow major updates globally but keep specific packages on their current major version:
 
 ```shell
 # Update all packages including major, but keep EF Core on its current major
-dotnet package-update --major --pin-major "Microsoft.EntityFrameworkCore.*"
+dotnet update-cpm-versions --major --pin-major "Microsoft.EntityFrameworkCore.*"
 ```
 
 ## Options
 
 | Option | Description |
-|---|---|
+| --- | --- |
 | `[path]` | Path to `Directory.Packages.props` or its parent directory. Default: current directory (searches parent directories). |
 | `--major` | Allow major version updates. Default: only minor/patch updates. |
 | `--patch-only` | Only update patch versions. |
@@ -62,17 +62,6 @@ dotnet package-update --major --pin-major "Microsoft.EntityFrameworkCore.*"
 | `--pin-major <glob>` | With `--major`, keep matching packages on their current major version. Repeatable. |
 | `--dry-run`, `-n` | Preview what would be updated without modifying the file. |
 | `--source <url>` | NuGet V3 feed URL. Default: nuget.org. |
-
-## Output
-
-The tool groups updates by kind (patch, minor, major) and sorts alphabetically within each group. A separate section shows available updates that were not applied because they are out of scope.
-
-After applying updates, it suggests next steps:
-
-```
-dotnet restore
-git add Directory.Packages.props && git commit -m "chore(deps): update NuGet packages"
-```
 
 ## How It Works
 
