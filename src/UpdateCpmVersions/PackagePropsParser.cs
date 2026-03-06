@@ -83,6 +83,7 @@ static class PackagePropsParser
         {
             OmitXmlDeclaration = doc.Declaration is null,
             Indent = false,
+            NewLineHandling = NewLineHandling.None,
         };
         using var writer = XmlWriter.Create(filePath, settings);
         doc.Save(writer);

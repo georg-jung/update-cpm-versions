@@ -112,6 +112,26 @@ public class PackagePropsParserTests
     }
 
     [Test]
+    public async Task Save_PreservesInlineComments()
+    {
+        var content = "<Project>\n"
+            + "  <ItemGroup>\n"
+            + "    <PackageVersion Include=\"Foo\" Version=\"1.0.0\" /> <!-- pinned for compat -->\n"
+            + "    <PackageVersion Include=\"Bar\" Version=\"2.0.0\" /> <!-- another comment -->\n"
+            + "  </ItemGroup>\n"
+            + "</Project>\n";
+        var path = WriteTempFile(content);
+
+        var (doc, packages) = PackagePropsParser.Parse(path);
+        PackagePropsParser.UpdateVersion(packages[0], NuGetVersion.Parse("1.2.0"));
+        PackagePropsParser.Save(doc, path);
+
+        var result = File.ReadAllText(path);
+        var expected = content.Replace("Version=\"1.0.0\"", "Version=\"1.2.0\"");
+        await Assert.That(result).IsEqualTo(expected);
+    }
+
+    [Test]
     public async Task FindFile_FindsInDirectory()
     {
         var dir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
