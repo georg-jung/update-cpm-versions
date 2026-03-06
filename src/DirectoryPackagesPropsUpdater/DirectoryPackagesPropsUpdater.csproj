@@ -11,12 +11,14 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/georg-jung/DirectoryPackagesPropsUpdater</PackageProjectUrl>
     <RepositoryUrl>https://github.com/georg-jung/DirectoryPackagesPropsUpdater</RepositoryUrl>
+    <PackageIcon>logo-nuget.png</PackageIcon>
     <PackageTags>nuget;packages;update;directory-packages-props;central-package-management;cpm;dotnet-tool</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="../../README.md" Pack="true" PackagePath="/" />
+    <None Include="../../logo-nuget.png" Pack="true" PackagePath="/" />
   </ItemGroup>
 
   <ItemGroup>
