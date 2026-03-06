@@ -72,5 +72,5 @@ jobs:
       - uses: actions/attest-build-provenance@v4
         if: matrix.os == 'ubuntu-latest'
         with:
-          subject-name: nupkg
+          subject-name: nuget-package
           subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}

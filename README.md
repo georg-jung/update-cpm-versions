@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/georg-jung/update-cpm-versions/master/logo.svg" alt="update-cpm-versions logo" width="36" /> update-cpm-versions
+# ![update-cpm-versions logo](https://raw.githubusercontent.com/georg-jung/update-cpm-versions/master/logo.svg) update-cpm-versions
 
 [![Build Status](https://github.com/georg-jung/update-cpm-versions/actions/workflows/ci.yml/badge.svg)](https://github.com/georg-jung/update-cpm-versions/actions/workflows/ci.yml) [![NuGet version (update-cpm-versions)](https://img.shields.io/nuget/v/update-cpm-versions.svg?style=flat)](https://www.nuget.org/packages/update-cpm-versions/) [![codecov](https://codecov.io/gh/georg-jung/update-cpm-versions/graph/badge.svg)](https://app.codecov.io/gh/georg-jung/update-cpm-versions)
 
