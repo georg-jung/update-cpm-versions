@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>dotnet-update-cpm-versions</ToolCommandName>
+    <ToolCommandName>update-cpm-versions</ToolCommandName>
     <PackageId>DirectoryPackagesPropsUpdater</PackageId>
     <Version>0.1.0</Version>
     <Authors>Georg Jung</Authors>
