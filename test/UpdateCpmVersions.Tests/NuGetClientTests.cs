@@ -38,4 +38,12 @@ public class NuGetClientTests
         await Assert.That(result["NETStandard.Library"].Count).IsGreaterThan(0);
         await Assert.That(result["Microsoft.NETCore.Platforms"].Count).IsGreaterThan(0);
     }
+
+    [Test]
+    public async Task ResolveBaseUrlAsync_NuGetOrg_ReturnsFlatContainerUrl()
+    {
+        var url = await NuGetClient.ResolveBaseUrlAsync("https://api.nuget.org/v3/index.json");
+
+        await Assert.That(url).IsEqualTo(new Uri("https://api.nuget.org/v3-flatcontainer/"));
+    }
 }
