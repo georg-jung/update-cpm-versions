@@ -163,4 +163,66 @@ public class PackagePropsParserTests
         await Assert.That(() => PackagePropsParser.FindFile(dir))
             .Throws<FileNotFoundException>();
     }
+
+    [Test]
+    public async Task FindFile_FindsInCurrentDirectory()
+    {
+        var dir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        Directory.CreateDirectory(dir);
+        var filePath = Path.Combine(dir, "Directory.Packages.props");
+        File.WriteAllText(filePath, "<Project />");
+
+        var original = Directory.GetCurrentDirectory();
+        try
+        {
+            Directory.SetCurrentDirectory(dir);
+            var found = PackagePropsParser.FindFile(null);
+            await Assert.That(found).IsEqualTo(filePath);
+        }
+        finally
+        {
+            Directory.SetCurrentDirectory(original);
+        }
+    }
+
+    [Test]
+    public async Task FindFile_WalksUpDirectoryTree()
+    {
+        var root = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var child = Path.Combine(root, "child");
+        Directory.CreateDirectory(child);
+        var filePath = Path.Combine(root, "Directory.Packages.props");
+        File.WriteAllText(filePath, "<Project />");
+
+        var original = Directory.GetCurrentDirectory();
+        try
+        {
+            Directory.SetCurrentDirectory(child);
+            var found = PackagePropsParser.FindFile(null);
+            await Assert.That(found).IsEqualTo(filePath);
+        }
+        finally
+        {
+            Directory.SetCurrentDirectory(original);
+        }
+    }
+
+    [Test]
+    public async Task FindFile_ThrowsWhenNotFoundInAnyParent()
+    {
+        var dir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        Directory.CreateDirectory(dir);
+
+        var original = Directory.GetCurrentDirectory();
+        try
+        {
+            Directory.SetCurrentDirectory(dir);
+            await Assert.That(() => PackagePropsParser.FindFile(null))
+                .Throws<FileNotFoundException>();
+        }
+        finally
+        {
+            Directory.SetCurrentDirectory(original);
+        }
+    }
 }
