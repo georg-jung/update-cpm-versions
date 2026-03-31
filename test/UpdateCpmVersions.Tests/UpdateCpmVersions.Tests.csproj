@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GitHubActionsTestLogger" />
     <PackageReference Include="TUnit" />
   </ItemGroup>
 
