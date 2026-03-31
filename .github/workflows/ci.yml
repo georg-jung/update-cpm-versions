@@ -46,13 +46,13 @@ jobs:
             core.exportVariable('ACTIONS_RESULTS_URL', process.env['ACTIONS_RESULTS_URL']);
 
       - name: Test
-        # --no-build leads to empty coverage
-        run: dotnet test -c Release --coverage --coverage-output cobertura.xml --coverage-output-format cobertura --results-directory .
+        run: dotnet test -c Release --no-build --results-directory . -- --coverage --coverage-output cobertura.xml --coverage-output-format cobertura
 
       - name: Upload coverage reports to Codecov
         if: matrix.os == 'ubuntu-latest'
         uses: codecov/codecov-action@v6
         with:
+          fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Pack
