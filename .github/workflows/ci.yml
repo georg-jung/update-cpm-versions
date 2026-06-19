@@ -70,7 +70,7 @@ jobs:
             ./artifacts/*.snupkg
 
       - uses: actions/attest@v4
-        if: matrix.os == 'ubuntu-latest' && (github.ref_name == github.event.repository.default_branch || github.ref_type == 'tag')
+        if: matrix.os == 'ubuntu-latest' && (github.ref_type == 'tag')
         with:
           subject-path: |
             ./artifacts/*.nupkg
