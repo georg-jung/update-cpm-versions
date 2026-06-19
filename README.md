@@ -72,6 +72,10 @@ update-cpm-versions --major --pin-major "Microsoft.EntityFrameworkCore.*"
 3. Applies SemVer 2 version band logic to determine the best update for each package
 4. Writes updated versions back to the file, preserving XML structure
 
+## Provenance
+
+This repo provides build provenance for tagged builds and enabled release immutability for upcoming releases. You can verify the provenance e.g. using the [NuGet Provenance Verifier](https://nuget-provenance-verifier.gjung.com/).
+
 ## License
 
 [MIT](LICENSE)
